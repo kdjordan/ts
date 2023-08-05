@@ -1,9 +1,11 @@
+import { Sorter } from "./Sorter";
+
 class Node {
   next: Node | null = null;
   constructor(public data: number) {}
 }
 
-export class LinkedList {
+export class LinkedList extends Sorter {
   head: Node | null = null
 
   add(data: number): void {
@@ -50,5 +52,33 @@ export class LinkedList {
       node = node.next
     }
     throw new Error('Index Out of bounds')
+  }
+
+  compare(leftIndex: number, rightIndex: number): boolean {
+    if (!this.head) {
+      throw new Error('Index Out of bounds')
+    }
+
+    return this.at(leftIndex).data > this.at(rightIndex).data
+  }
+
+  swap(leftIndex: number, rightIndex: number): void {
+    let leftHand = this.at(leftIndex).data
+    this.at(leftIndex).data = this.at(rightIndex).data
+    this.at(rightIndex).data = leftHand
+  }
+
+  print():void {
+    if (!this.head) {
+      throw new Error('Index Out of bounds')
+    }
+
+    let node: Node | null = this.head
+
+    while (node) {
+      console.log(node.data)
+      node = node.next
+    }
+    console.log('********')
   }
 }
